@@ -1,0 +1,155 @@
+analysis:
+  analysis_type: asimov
+  detector_configs:
+  - IC86_pass2_SnowStorm_example_tracks
+  input_params:
+    astro_norm: 1.36
+    conv_norm: 1.0
+    gamma_astro: 2.37
+    prompt_norm: 0.0
+  llh: PoissonLLH
+components:
+  astro:
+    baseline_weights: powerlaw
+    class: Powerlaw
+    parameters:
+      astro_norm:
+        additional:
+          per_type_norm: false
+        class: Norm
+        default: 0.75
+        interpolate: false
+        range:
+        - 0.0
+        - null
+      gamma_astro:
+        additional:
+          reference_index: 2.0
+        class: SpectralIndex
+        default: 2.8
+        interpolate: false
+        range:
+        - 1.0
+        - null
+  conventional:
+    baseline_weights: mceq_conv_H4a_SIBYLL23c
+    class: ConventionalAtmo
+    param_specifications:
+      CR_grad:
+        alternative_weights: mceq_conv_GST4_SIBYLL23c
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+      delta_gamma:
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+    parameters:
+      CR_grad: &id001
+        class: CRGrad
+        default: 0.0
+        prior: 0.0
+        prior_width: 1.0
+        range:
+        - -1.0
+        - 2.0
+      conv_norm:
+        class: Norm
+        default: 1.02
+        range:
+        - 0.0
+        - null
+      delta_gamma: &id002
+        class: DeltaGamma
+        default: 0.0
+        interpolate: false
+        range:
+        - -1.0
+        - 1.0
+  prompt:
+    baseline_weights: mceq_pr_H4a_SIBYLL23c
+    class: PromptAtmo
+    param_specifications:
+      CR_grad:
+        alternative_weights: mceq_pr_GST4_SIBYLL23c
+        baseline_weights: mceq_pr_H4a_SIBYLL23c
+      delta_gamma:
+        baseline_weights: mceq_pr_H4a_SIBYLL23c
+    parameters:
+      CR_grad: *id001
+      delta_gamma: *id002
+      prompt_norm:
+        class: Norm
+        default: 0.5
+        range:
+        - 0.0
+        - null
+config:
+  IC86_pass2_SnowStorm_example_tracks:
+    analysis_binning: IC86_pass2_SnowStorm_example_tracks_2D_binning
+    baseline_dataset: /data/user/rnaab/GlobalFit/NNMFit/datasets/SnowStorm_example_tracks
+    data: ''
+    datasets_path: /data/user/rnaab/GlobalFit/NNMFit/datasets/SnowStorm_example_tracks
+    livetime: '182784657'
+    name: IC86_pass2_SnowStorm_example_tracks
+    systematics: IC86_pass2_SnowStorm_example_tracks_systematics
+    var_mapping: IC86_pass2_SnowStorm_example_tracks_var_mapping
+    var_mapping_mc: IC86_pass2_SnowStorm_example_tracks_var_mapping_mc
+  IC86_pass2_SnowStorm_example_tracks_2D_binning:
+    analysis_variables: reco_energy, reco_zenith
+    binning_range: '[(2,7,51,log), (-1, 0.0872, 34,cos)]'
+    class_name: Binning_2D
+  IC86_pass2_SnowStorm_example_tracks_systematics:
+    systematics: SnowStorm_DOMEfficiency, SnowStorm_IceAbsorption
+  IC86_pass2_SnowStorm_example_tracks_var_mapping:
+    reco_dir_exists: reco_dir_exists
+    reco_dir_fit_status: reco_dir_fit_status
+    reco_energy: energy_truncated
+    reco_energy_exists: energy_truncated_exists
+    reco_energy_fit_status: energy_truncated_fit_status
+    reco_zenith: zenith_MPEFit
+  IC86_pass2_SnowStorm_example_tracks_var_mapping_mc:
+    true_energy: MCPrimaryEnergy
+    true_ptype: MCPrimaryType
+    true_zenith: MCPrimaryZenith
+  SnowStorm_DOMEfficiency:
+    MC_variable: DOMEfficiency
+    class: SnowStormGauss
+    default: '1.0'
+    gauss_width: '0.05'
+    parameters: dom_eff
+    range: (0.9, 1.1)
+    sim_bounds: (0.9, 1.1)
+    sim_dist: uniform
+  SnowStorm_HoleIceForward_p0:
+    MC_variable: HoleIceForward_p0
+    class: SnowStormGauss
+    default: '0.0'
+    gauss_width: '0.5'
+    parameters: ice_holep0
+    range: (-1.0, 1.0)
+    sim_bounds: (-1.0, 1.0)
+    sim_dist: uniform
+  SnowStorm_IceAbsorption:
+    MC_variable: IceAbsorption
+    class: SnowStormGauss
+    default: '1.0'
+    gauss_width: '0.05'
+    parameters: ice_abs
+    range: (0.9, 1.1)
+    sim_bounds: (0.9, 1.1)
+    sim_dist: uniform
+  SnowStorm_IceScattering:
+    MC_variable: IceScattering
+    class: SnowStormGauss
+    default: '1.0'
+    gauss_width: '0.05'
+    parameters: ice_scat
+    range: (0.9, 1.1)
+    sim_bounds: (0.9, 1.1)
+    sim_dist: uniform
+  main:
+    caching_dir: /data/user/tvaneede/GlobalFit/cache
+    components: conventional, astro, prompt
+    dir_datasets: /data/user/rnaab/GlobalFit/NNMFit/datasets
+    dir_systematics: /data/user/rnaab/GlobalFit/NNMFit/datasets
+    systematics_config: SnowStorm_systematics
+  minimizer_settings:
+    class: LBFGSB
+    tolerance: '10'

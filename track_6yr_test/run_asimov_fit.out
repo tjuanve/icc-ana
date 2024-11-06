@@ -1,0 +1,7 @@
+Start time: Tue Oct 22 09:19:48 CDT 2024
+Job is running on node: n-36.icecube.wisc.edu
+Job is running in directory: /scratch/condor/dir_12862
+sourcing environment
+/mnt/ceph1-npx/user/tvaneede/software/py_venvs/py3-v4.2.1_nnmfit-v0.3.0/bin/python
+hoi lets go
+Job complete!
