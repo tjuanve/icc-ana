@@ -1,0 +1,63 @@
+000 (218470953.000.000) 2024-11-05 11:37:55 Job submitted from host: <10.128.11.86:25462?addrs=10.128.11.86-25462&alias=submit-1.icecube.wisc.edu>
+...
+040 (218470953.000.000) 2024-11-05 11:38:11 Started transferring input files
+	Transferring to host: <10.128.11.56:39609?addrs=10.128.11.56-39609&alias=c9-17.icecube.wisc.edu>
+...
+040 (218470953.000.000) 2024-11-05 11:38:11 Finished transferring input files
+...
+001 (218470953.000.000) 2024-11-05 11:38:12 Job executing on host: <10.128.11.56:48180?addrs=10.128.11.56-48180&alias=c9-17.icecube.wisc.edu>
+...
+006 (218470953.000.000) 2024-11-05 11:38:20 Image size of job updated: 48584
+	13  -  MemoryUsage of job (MB)
+	13136  -  ResidentSetSize of job (KB)
+...
+006 (218470953.000.000) 2024-11-05 11:43:20 Image size of job updated: 17625972
+	1696  -  MemoryUsage of job (MB)
+	1736352  -  ResidentSetSize of job (KB)
+...
+006 (218470953.000.000) 2024-11-05 11:48:21 Image size of job updated: 19492820
+	3172  -  MemoryUsage of job (MB)
+	3248128  -  ResidentSetSize of job (KB)
+...
+006 (218470953.000.000) 2024-11-05 11:53:22 Image size of job updated: 19492820
+	3178  -  MemoryUsage of job (MB)
+	3253672  -  ResidentSetSize of job (KB)
+...
+006 (218470953.000.000) 2024-11-05 13:23:30 Image size of job updated: 19492820
+	3383  -  MemoryUsage of job (MB)
+	3464180  -  ResidentSetSize of job (KB)
+...
+006 (218470953.000.000) 2024-11-05 13:28:30 Image size of job updated: 19492820
+	3384  -  MemoryUsage of job (MB)
+	3464444  -  ResidentSetSize of job (KB)
+...
+006 (218470953.000.000) 2024-11-05 13:53:33 Image size of job updated: 19492820
+	3483  -  MemoryUsage of job (MB)
+	3565588  -  ResidentSetSize of job (KB)
+...
+040 (218470953.000.000) 2024-11-05 13:57:35 Started transferring output files
+...
+040 (218470953.000.000) 2024-11-05 13:57:35 Finished transferring output files
+...
+005 (218470953.000.000) 2024-11-05 13:57:35 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 01:47:50, Sys 0 00:28:53  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 01:47:50, Sys 0 00:28:53  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	721122  -  Run Bytes Sent By Job
+	7586  -  Run Bytes Received By Job
+	721122  -  Total Bytes Sent By Job
+	7586  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   admin_mutex_1         :                           0 
+	   admin_mutex_2         :                           0 
+	   admin_mutex_3         :                           0 
+	   Cpus                  :     1.00        1         1 
+	   Disk (KB)             :   733     1048576   3293960 
+	   GPUs                  :                           0 
+	   machine_token         :                           0 
+	   Memory (MB)           :  3483        8192      8192 
+
+	Job terminated of its own accord at 2024-11-05T19:57:35Z.
+...

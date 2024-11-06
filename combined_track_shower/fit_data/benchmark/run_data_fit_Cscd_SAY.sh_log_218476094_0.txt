@@ -1,0 +1,47 @@
+000 (218476094.000.000) 2024-11-05 11:51:59 Job submitted from host: <10.128.11.86:25462?addrs=10.128.11.86-25462&alias=submit-1.icecube.wisc.edu>
+...
+040 (218476094.000.000) 2024-11-05 11:54:10 Started transferring input files
+	Transferring to host: <10.128.10.61:41319?addrs=10.128.10.61-41319&alias=n-151.icecube.wisc.edu>
+...
+040 (218476094.000.000) 2024-11-05 11:54:10 Finished transferring input files
+...
+001 (218476094.000.000) 2024-11-05 11:54:11 Job executing on host: <10.128.10.61:37600?addrs=10.128.10.61-37600&alias=n-151.icecube.wisc.edu>
+...
+006 (218476094.000.000) 2024-11-05 11:54:20 Image size of job updated: 201140
+	18  -  MemoryUsage of job (MB)
+	18308  -  ResidentSetSize of job (KB)
+...
+006 (218476094.000.000) 2024-11-05 11:59:21 Image size of job updated: 3620080
+	816  -  MemoryUsage of job (MB)
+	834796  -  ResidentSetSize of job (KB)
+...
+006 (218476094.000.000) 2024-11-05 12:04:22 Image size of job updated: 3814416
+	1074  -  MemoryUsage of job (MB)
+	1099144  -  ResidentSetSize of job (KB)
+...
+040 (218476094.000.000) 2024-11-05 12:28:04 Started transferring output files
+...
+040 (218476094.000.000) 2024-11-05 12:28:04 Finished transferring output files
+...
+005 (218476094.000.000) 2024-11-05 12:28:04 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:27:15, Sys 0 00:02:42  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:27:15, Sys 0 00:02:42  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	848300  -  Run Bytes Sent By Job
+	7582  -  Run Bytes Received By Job
+	848300  -  Total Bytes Sent By Job
+	7582  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   admin_mutex_1         :                           0 
+	   admin_mutex_2         :                           0 
+	   admin_mutex_3         :                           0 
+	   Cpus                  :     1.00        1         1 
+	   Disk (KB)             :   857     1048576   1477058 
+	   GPUs                  :                           0 
+	   machine_token         :                           0 
+	   Memory (MB)           :  1074        8192      8192 
+
+	Job terminated of its own accord at 2024-11-05T18:28:04Z.
+...

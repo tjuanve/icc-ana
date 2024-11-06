@@ -1,0 +1,359 @@
+analysis:
+  analysis_type: asimov
+  detector_configs:
+  - IC86_pass2_SnowStorm_v2_tracks
+  - IC86_pass2_SnowStorm_v2_cscd_cascade
+  - IC86_pass2_SnowStorm_v2_cscd_muon
+  input_params:
+    astro_norm: 1.44
+    gamma_astro: 2.37
+    prompt_norm: 0.0
+  llh: PoissonLLH
+components:
+  astro:
+    baseline_weights: powerlaw
+    class: Powerlaw
+    parameters:
+      astro_norm:
+        additional:
+          per_type_norm: false
+        class: Norm
+        default: 1.5
+        interpolate: false
+        range:
+        - 0.0
+        - null
+      gamma_astro:
+        additional:
+          reference_index: 2.0
+        class: SpectralIndex
+        default: 2.4
+        interpolate: false
+        range:
+        - 1.0
+        - null
+  conventional:
+    additional:
+      hooks:
+        OscillationsHook:
+          spline_file: /data/ana/Diffuse/NNMFit/resources/oscillation_splines/NuCraft_OscillationProb.pickle
+    baseline_weights: mceq_conv_H4a_SIBYLL23c
+    class: ConventionalAtmo
+    param_specifications:
+      CR_grad:
+        alternative_weights: mceq_conv_GST4_SIBYLL23c
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+      barr_h:
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+        slope_per_event: barr_h_mceq_H4a_SIBYLL23c
+      barr_w:
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+        slope_per_event: barr_w_mceq_H4a_SIBYLL23c
+      barr_y:
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+        slope_per_event: barr_y_mceq_H4a_SIBYLL23c
+      barr_z:
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+        slope_per_event: barr_z_mceq_H4a_SIBYLL23c
+      delta_gamma:
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+    parameters:
+      CR_grad: &id001
+        class: CRGrad
+        default: 0.0
+        prior: 0.0
+        prior_width: 1.0
+        range:
+        - -1.0
+        - 2.0
+      barr_h: &id002
+        class: BarrLinear
+        default: 0.0
+        prior: 0.0
+        prior_width: 0.15
+        range:
+        - -0.8
+        - 0.8
+      barr_w: &id003
+        class: BarrLinear
+        default: 0.0
+        prior: 0.0
+        prior_width: 0.4
+        range:
+        - -0.6
+        - 0.6
+      barr_y: &id004
+        class: BarrLinear
+        default: 0.0
+        prior: 0.0
+        prior_width: 0.3
+        range:
+        - -0.6
+        - 0.6
+      barr_z: &id005
+        class: BarrLinear
+        default: 0.0
+        prior: 0.0
+        prior_width: 0.12
+        range:
+        - -0.244
+        - 0.6
+      conv_norm: &id006
+        class: Norm
+        default: 1.0
+        range:
+        - 0.0
+        - null
+      delta_gamma: &id007
+        class: DeltaGamma
+        default: 0.0
+        interpolate: false
+        range:
+        - -1.0
+        - 1.0
+  conventional_veto:
+    baseline_weights: mceq_conv_H4a_SIBYLL23c
+    class: ConventionalAtmo
+    param_specifications:
+      CR_grad:
+        alternative_weights: mceq_conv_GST4_SIBYLL23c
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+      barr_h:
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+        slope_per_event: barr_h_mceq_H4a_SIBYLL23c
+      barr_w:
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+        slope_per_event: barr_w_mceq_H4a_SIBYLL23c
+      barr_y:
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+        slope_per_event: barr_y_mceq_H4a_SIBYLL23c
+      barr_z:
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+        slope_per_event: barr_z_mceq_H4a_SIBYLL23c
+      delta_gamma:
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+      effective_veto:
+        threshold_a: log_PF_at100GeV_conv_a
+        threshold_b: log_PF_at100GeV_conv_b
+        threshold_c: log_PF_at100GeV_conv_c
+    parameters:
+      CR_grad: *id001
+      barr_h: *id002
+      barr_w: *id003
+      barr_y: *id004
+      barr_z: *id005
+      conv_norm: *id006
+      delta_gamma: *id007
+      effective_veto: &id008
+        additional:
+          anchor_energy: 100
+          rescale_energy: 100
+        class: VetoThreshold
+        default: 0.0
+        range:
+        - -1.301
+        - 1.301
+  muon:
+    baseline_weights: muongun_conv_H4a_SIBYLL
+    class: ConventionalAtmo
+    parameters:
+      muongun_norm:
+        class: Norm
+        default: 1.0
+        range:
+        - 0
+        - null
+    skip_syst: true
+  muontemplate:
+    additional:
+      template_file: /data/ana/Diffuse/GlobalFit/NNMFit/templates/Tracks_CorsikaMuon.pickle
+    class: TemplateFlux
+    parameters:
+      muon_norm:
+        class: Norm
+        default: 1.0
+        prior: 1.0
+        prior_width: 0.5
+        range:
+        - 0
+        - null
+    skip_syst: true
+  prompt:
+    additional:
+      hooks:
+        OscillationsHook:
+          spline_file: /data/ana/Diffuse/NNMFit/resources/oscillation_splines/NuCraft_OscillationProb.pickle
+    baseline_weights: mceq_pr_H4a_SIBYLL23c
+    class: PromptAtmo
+    param_specifications:
+      CR_grad:
+        alternative_weights: mceq_pr_GST4_SIBYLL23c
+        baseline_weights: mceq_pr_H4a_SIBYLL23c
+      delta_gamma:
+        baseline_weights: mceq_pr_H4a_SIBYLL23c
+    parameters:
+      CR_grad: *id001
+      delta_gamma: *id007
+      prompt_norm: &id009
+        class: Norm
+        default: 0.5
+        range:
+        - 0.0
+        - null
+  prompt_veto:
+    baseline_weights: mceq_pr_H4a_SIBYLL23c
+    class: PromptAtmo
+    param_specifications:
+      CR_grad:
+        alternative_weights: mceq_pr_GST4_SIBYLL23c
+        baseline_weights: mceq_pr_H4a_SIBYLL23c
+      delta_gamma:
+        baseline_weights: mceq_pr_H4a_SIBYLL23c
+      effective_veto:
+        threshold_a: log_PF_at100GeV_pr_a
+        threshold_b: log_PF_at100GeV_pr_b
+        threshold_c: log_PF_at100GeV_pr_c
+    parameters:
+      CR_grad: *id001
+      delta_gamma: *id007
+      effective_veto: *id008
+      prompt_norm: *id009
+config:
+  IC86_pass2_SnowStorm_v2_cscd_cascade:
+    analysis_binning: IC86_pass2_SnowStorm_v2_cscd_cascade_2D_binning
+    baseline_dataset: /data/ana/Diffuse/GlobalFit/NNMFit/datasets/SnowStorm_v2_cscd_cascade_baseline
+    data: /data/ana/Diffuse/GlobalFit/NNMFit/datasets/data/data_cscd_cascade.hdf
+    datasets_path: /data/ana/Diffuse/GlobalFit/NNMFit/datasets/SnowStorm_v2_cscd_cascade_baseline
+    excluded_components: muontemplate, conventional, prompt
+    livetime: '330315015.11'
+    modification_hooks: ''
+    name: IC86_pass2_SnowStorm_v2_cscd_cascade
+    systematics: IC86_pass2_SnowStorm_v2_cscd_cascade_systematics
+    var_mapping: IC86_pass2_SnowStorm_v2_cscd_cascade_var_mapping
+    var_mapping_mc: IC86_pass2_SnowStorm_v2_cscd_cascade_var_mapping_mc
+  IC86_pass2_SnowStorm_v2_cscd_cascade_2D_binning:
+    analysis_variables: reco_energy, reco_zenith
+    class_name: Binning_2D
+    reco_energy_binning: (2.6,7,23,log)
+    reco_zenith_binning: (-1,1,4,cscd-cos)
+  IC86_pass2_SnowStorm_v2_cscd_cascade_systematics:
+    systematics: SnowStorm_v2_Gradient_5sys
+  IC86_pass2_SnowStorm_v2_cscd_cascade_var_mapping:
+    reco_dir_exists: reco_dir_exists
+    reco_dir_fit_status: reco_dir_fit_status
+    reco_energy: energy_monopod
+    reco_energy_exists: energy_monopod_exists
+    reco_energy_fit_status: energy_monopod_fit_status
+    reco_ra: ra_monopod
+    reco_zenith: zenith_monopod
+  IC86_pass2_SnowStorm_v2_cscd_cascade_var_mapping_mc:
+    true_dec: MCPrimaryDec
+    true_energy: MCPrimaryEnergy
+    true_lat: MCPrimaryLat
+    true_lon: MCPrimaryLon
+    true_ptype: MCPrimaryType
+    true_ra: MCPrimaryRA
+    true_zenith: MCPrimaryZenith
+  IC86_pass2_SnowStorm_v2_cscd_muon:
+    analysis_binning: IC86_pass2_SnowStorm_v2_cscd_muon_2D_binning
+    baseline_dataset: /data/ana/Diffuse/GlobalFit/NNMFit/datasets/SnowStorm_v2_cscd_muon_baseline
+    data: /data/ana/Diffuse/GlobalFit/NNMFit/datasets/data/data_cscd_muon.hdf
+    datasets_path: /data/ana/Diffuse/GlobalFit/NNMFit/datasets/SnowStorm_v2_cscd_muon_baseline
+    excluded_components: muontemplate, conventional, prompt
+    livetime: '330315015.11'
+    modification_hooks: ''
+    name: IC86_pass2_SnowStorm_v2_cscd_muon
+    systematics: IC86_pass2_SnowStorm_v2_cscd_muon_systematics
+    var_mapping: IC86_pass2_SnowStorm_v2_cscd_muon_var_mapping
+    var_mapping_mc: IC86_pass2_SnowStorm_v2_cscd_muon_var_mapping_mc
+  IC86_pass2_SnowStorm_v2_cscd_muon_2D_binning:
+    analysis_variables: reco_energy, reco_zenith
+    class_name: Binning_2D
+    reco_energy_binning: (2.6,4.8,2,log)
+    reco_zenith_binning: (-1,1,2,cos)
+  IC86_pass2_SnowStorm_v2_cscd_muon_systematics:
+    systematics: SnowStorm_v2_Gradient_5sys
+  IC86_pass2_SnowStorm_v2_cscd_muon_var_mapping:
+    reco_dir_exists: reco_dir_exists
+    reco_dir_fit_status: reco_dir_fit_status
+    reco_energy: energy_monopod
+    reco_energy_exists: energy_monopod_exists
+    reco_energy_fit_status: energy_monopod_fit_status
+    reco_ra: ra_monopod
+    reco_zenith: zenith_monopod
+  IC86_pass2_SnowStorm_v2_cscd_muon_var_mapping_mc:
+    true_dec: MCPrimaryDec
+    true_energy: MCPrimaryEnergy
+    true_lat: MCPrimaryLat
+    true_lon: MCPrimaryLon
+    true_ptype: MCPrimaryType
+    true_ra: MCPrimaryRA
+    true_zenith: MCPrimaryZenith
+  IC86_pass2_SnowStorm_v2_tracks:
+    analysis_binning: IC86_pass2_SnowStorm_v2_tracks_2D_binning
+    baseline_dataset: /data/ana/Diffuse/GlobalFit/NNMFit/datasets/SnowStorm_v2_tracks_baseline
+    data: /data/ana/Diffuse/GlobalFit/NNMFit/datasets/data/data_tracks.hdf
+    datasets_path: /data/ana/Diffuse/GlobalFit/NNMFit/datasets/SnowStorm_v2_tracks_baseline
+    excluded_components: muon, conventional_veto, prompt_veto
+    livetime: '257989333.37'
+    modification_hooks: ''
+    name: IC86_pass2_SnowStorm_v2_tracks
+    systematics: IC86_pass2_SnowStorm_v2_tracks_systematics
+    var_mapping: IC86_pass2_SnowStorm_v2_tracks_var_mapping
+    var_mapping_mc: IC86_pass2_SnowStorm_v2_tracks_var_mapping_mc
+  IC86_pass2_SnowStorm_v2_tracks_2D_binning:
+    analysis_variables: reco_energy, reco_zenith
+    class_name: Binning_2D
+    reco_energy_binning: (2,7,51,log)
+    reco_zenith_binning: (-1,0.0872,34,cos)
+  IC86_pass2_SnowStorm_v2_tracks_systematics:
+    systematics: SnowStorm_v2_Gradient_5sys
+  IC86_pass2_SnowStorm_v2_tracks_var_mapping:
+    reco_dir_exists: reco_dir_exists
+    reco_dir_fit_status: reco_dir_fit_status
+    reco_energy: energy_truncated
+    reco_energy_exists: energy_truncated_exists
+    reco_energy_fit_status: energy_truncated_fit_status
+    reco_ra: ra_MPEFit
+    reco_zenith: zenith_MPEFit
+  IC86_pass2_SnowStorm_v2_tracks_var_mapping_mc:
+    true_dec: MCPrimaryDec
+    true_energy: MCPrimaryEnergy
+    true_lat: MCPrimaryLat
+    true_lon: MCPrimaryLon
+    true_ptype: MCPrimaryType
+    true_ra: MCPrimaryRA
+    true_zenith: MCPrimaryZenith
+  SnowStorm_v2_Gradient_5sys:
+    class: SnowStormGradient
+    default: 1.0, 1.0, 1.0, -0.27, -0.042
+    external_gradients: 'True'
+    gradient_pickle: /data/ana/Diffuse/GlobalFit/NNMFit/snowstorm_gradients/snowstorm_v2_All_FullSamples.pickle
+    hist_parameter: 'True'
+    hist_parameter_overall: 'True'
+    param_in_dict: DOMEfficiency, IceAbsorption, IceScattering, HoleIceForward_p0,
+      HoleIceForward_p1
+    parameters: dom_eff, ice_abs, ice_scat, ice_holep0, ice_holep1
+    range: (0.9, 1.1) | (0.9, 1.1) | (0.9, 1.1) | (-0.84, 0.3) | (-0.134, 0.05)
+    split_values: 1.0, 1.0, 1.0, -0.27, -0.042
+  SnowStorm_v2_Gradient_5sys_DroppedBins:
+    class: SnowStormGradient
+    default: 1.0, 1.0, 1.0, -0.27, -0.042
+    external_gradients: 'True'
+    gradient_pickle: /data/ana/Diffuse/GlobalFit/NNMFit/snowstorm_gradients/snowstorm_v2_All_TracksNoCscd_DroppedBins.pickle
+    hist_parameter: 'True'
+    hist_parameter_overall: 'True'
+    param_in_dict: DOMEfficiency, IceAbsorption, IceScattering, HoleIceForward_p0,
+      HoleIceForward_p1
+    parameters: dom_eff, ice_abs, ice_scat, ice_holep0, ice_holep1
+    range: (0.9, 1.1) | (0.9, 1.1) | (0.9, 1.1) | (-0.84, 0.3) | (-0.134, 0.05)
+    split_values: 1.0, 1.0, 1.0, -0.27, -0.042
+  main:
+    caching_dir: /data/ana/Diffuse/GlobalFit/NNMFit/cache
+    components: conventional, conventional_veto, prompt, prompt_veto, muon, muontemplate,
+      astro
+    dir_datasets: /data/ana/Diffuse/GlobalFit/NNMFit/datasets
+    systematics_config: SnowStorm_v2_systematics
+  minimizer_settings:
+    class: LBFGSB
+    tolerance: '10'

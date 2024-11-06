@@ -1,0 +1,75 @@
+000 (218633190.000.000) 2024-11-06 06:36:25 Job submitted from host: <10.128.11.86:25462?addrs=10.128.11.86-25462&alias=submit-1.icecube.wisc.edu>
+...
+040 (218633190.000.000) 2024-11-06 06:39:34 Started transferring input files
+	Transferring to host: <10.128.10.161:58785?addrs=10.128.10.161-58785&alias=gtx-26.icecube.wisc.edu>
+...
+040 (218633190.000.000) 2024-11-06 06:39:34 Finished transferring input files
+...
+001 (218633190.000.000) 2024-11-06 06:39:35 Job executing on host: <10.128.10.161:57531?addrs=10.128.10.161-57531&alias=gtx-26.icecube.wisc.edu>
+...
+006 (218633190.000.000) 2024-11-06 06:39:44 Image size of job updated: 90348
+	22  -  MemoryUsage of job (MB)
+	22500  -  ResidentSetSize of job (KB)
+...
+006 (218633190.000.000) 2024-11-06 06:44:45 Image size of job updated: 22115768
+	5660  -  MemoryUsage of job (MB)
+	5795680  -  ResidentSetSize of job (KB)
+...
+006 (218633190.000.000) 2024-11-06 06:49:46 Image size of job updated: 23912636
+	5859  -  MemoryUsage of job (MB)
+	5998836  -  ResidentSetSize of job (KB)
+...
+006 (218633190.000.000) 2024-11-06 06:54:46 Image size of job updated: 23912636
+	7468  -  MemoryUsage of job (MB)
+	7647108  -  ResidentSetSize of job (KB)
+...
+006 (218633190.000.000) 2024-11-06 07:14:47 Image size of job updated: 23978888
+	7468  -  MemoryUsage of job (MB)
+	7647108  -  ResidentSetSize of job (KB)
+...
+006 (218633190.000.000) 2024-11-06 07:24:49 Image size of job updated: 23978888
+	7468  -  MemoryUsage of job (MB)
+	7647208  -  ResidentSetSize of job (KB)
+...
+006 (218633190.000.000) 2024-11-06 07:39:51 Image size of job updated: 23978888
+	7470  -  MemoryUsage of job (MB)
+	7649088  -  ResidentSetSize of job (KB)
+...
+006 (218633190.000.000) 2024-11-06 07:44:51 Image size of job updated: 23978888
+	7472  -  MemoryUsage of job (MB)
+	7650672  -  ResidentSetSize of job (KB)
+...
+006 (218633190.000.000) 2024-11-06 09:05:00 Image size of job updated: 23978888
+	7581  -  MemoryUsage of job (MB)
+	7761980  -  ResidentSetSize of job (KB)
+...
+006 (218633190.000.000) 2024-11-06 09:06:34 Image size of job updated: 23978888
+	7583  -  MemoryUsage of job (MB)
+	7764092  -  ResidentSetSize of job (KB)
+...
+040 (218633190.000.000) 2024-11-06 09:06:34 Started transferring output files
+...
+040 (218633190.000.000) 2024-11-06 09:06:34 Finished transferring output files
+...
+005 (218633190.000.000) 2024-11-06 09:06:34 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 01:51:49, Sys 0 00:32:31  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 01:51:49, Sys 0 00:32:31  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	820417  -  Run Bytes Sent By Job
+	7608  -  Run Bytes Received By Job
+	820417  -  Total Bytes Sent By Job
+	7608  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   admin_mutex_1         :                           0 
+	   admin_mutex_2         :                           0 
+	   admin_mutex_3         :                           0 
+	   Cpus                  :     1.00        1         1 
+	   Disk (KB)             :   832     1048576   1583775 
+	   GPUs                  :                           0 
+	   machine_token         :                           0 
+	   Memory (MB)           :  7583       18432     18432 
+
+	Job terminated of its own accord at 2024-11-06T15:06:34Z.
+...
