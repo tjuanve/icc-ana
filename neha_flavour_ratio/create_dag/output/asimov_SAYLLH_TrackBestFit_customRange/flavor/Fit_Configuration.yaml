@@ -1,0 +1,379 @@
+analysis:
+  analysis_type: asimov
+  detector_configs:
+  - IC86_pass2_SnowStorm_v2_Bfr_Cascades
+  - IC86_pass2_SnowStorm_v2_Bfr_DoubleCascades
+  - IC86_pass2_SnowStorm_v2_Bfr_Tracks
+  input_params:
+    astro_norm: 1.44
+    astro_nue_ratio: 1.0
+    astro_nutau_ratio: 1.0
+    conv_norm: 1.0
+    gamma_astro: 2.37
+    prompt_norm: 0.0
+  llh: SAYLLH
+components:
+  astro:
+    baseline_weights: powerlaw
+    class: Powerlaw
+    param_specifications:
+      inel_scale:
+        inelasticity_table: /data/ana/Diffuse/NNMFit/resources/inelasticity_tables/NuGen_xsection_fits.json
+    parameters:
+      astro_norm:
+        additional:
+          per_type_norm: false
+        class: Norm
+        default: 1.8
+        interpolate: false
+        range:
+        - 0.0
+        - null
+      astro_nue_ratio:
+        additional:
+          flavor: 12
+        class: FlavorRatio
+        default: 1.0
+        interpolate: false
+        range:
+        - 0.0
+        - null
+      astro_nutau_ratio:
+        additional:
+          flavor: 16
+        class: FlavorRatio
+        default: 1.0
+        interpolate: false
+        range:
+        - 0.0
+        - null
+      gamma_astro:
+        additional:
+          reference_index: 2.0
+        class: SpectralIndex
+        default: 2.8
+        interpolate: false
+        range:
+        - 1.0
+        - null
+      inel_scale: &id001
+        class: MeanInelasticityScaling
+        default: 1.0
+        prior: 1.0
+        prior_width: 0.1
+        range:
+        - 0.5
+        - 1.5
+  conventional:
+    additional:
+      fixed_passing_fraction_per_event: PassRate_conv
+    baseline_weights: mceq_conv_H4a_SIBYLL23c
+    class: AtmoFixedVeto
+    param_specifications:
+      CR_grad:
+        alternative_weights: mceq_conv_GST4_SIBYLL23c
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+      barr_h:
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+        slope_per_event: barr_h_mceq_H4a_SIBYLL23c
+      barr_w:
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+        slope_per_event: barr_w_mceq_H4a_SIBYLL23c
+      barr_y:
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+        slope_per_event: barr_y_mceq_H4a_SIBYLL23c
+      barr_z:
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+        slope_per_event: barr_z_mceq_H4a_SIBYLL23c
+      delta_gamma:
+        baseline_weights: mceq_conv_H4a_SIBYLL23c
+      inel_scale:
+        inelasticity_table: /data/ana/Diffuse/NNMFit/resources/inelasticity_tables/NuGen_xsection_fits.json
+    parameters:
+      CR_grad: &id002
+        class: CRGrad
+        default: 0.0
+        prior: 0.0
+        prior_width: 1.0
+        range:
+        - -1.0
+        - 2.0
+      barr_h:
+        class: BarrLinear
+        default: 0.0
+        prior: 0.0
+        prior_width: 0.15
+        range:
+        - -0.5
+        - 0.5
+      barr_w:
+        class: BarrLinear
+        default: 0.0
+        prior: 0.0
+        prior_width: 0.4
+        range:
+        - -0.5
+        - 0.5
+      barr_y:
+        class: BarrLinear
+        default: 0.0
+        prior: 0.0
+        prior_width: 0.3
+        range:
+        - -0.5
+        - 0.5
+      barr_z:
+        class: BarrLinear
+        default: 0.0
+        prior: 0.0
+        prior_width: 0.12
+        range:
+        - -0.5
+        - 0.5
+      conv_norm:
+        class: Norm
+        default: 1.0
+        prior: 1.0
+        prior_width: 0.2
+        range:
+        - 0.0
+        - null
+      delta_gamma: &id003
+        class: DeltaGamma
+        default: 0.0
+        interpolate: false
+        prior: 0.0
+        prior_width: 0.05
+        range:
+        - -1.0
+        - 1.0
+      inel_scale: *id001
+  muontemplate:
+    additional:
+      template_file: /data/ana/Diffuse/GlobalFit_Flavor/NNMFit_Configs/override/MuonGun/Tracks_KDE.pickle
+    class: TemplateFlux
+    parameters:
+      muongun_norm:
+        class: Norm
+        default: 1.0
+        prior: 1.0
+        prior_width: 0.5
+        range:
+        - 0
+        - null
+    skip_syst: true
+  prompt:
+    additional:
+      fixed_passing_fraction_per_event: PassRate_prompt
+    baseline_weights: mceq_pr_H4a_SIBYLL23c
+    class: AtmoFixedVeto
+    param_specifications:
+      CR_grad:
+        alternative_weights: mceq_pr_GST4_SIBYLL23c
+        baseline_weights: mceq_pr_H4a_SIBYLL23c
+      delta_gamma:
+        baseline_weights: mceq_pr_H4a_SIBYLL23c
+      inel_scale:
+        inelasticity_table: /data/ana/Diffuse/NNMFit/resources/inelasticity_tables/NuGen_xsection_fits.json
+    parameters:
+      CR_grad: *id002
+      delta_gamma: *id003
+      inel_scale: *id001
+      prompt_norm:
+        class: Norm
+        default: 0.5
+        range:
+        - 0.0
+        - null
+config:
+  IC86_pass2_SnowStorm_v2_Bfr_Cascades:
+    analysis_binning: IC86_pass2_SnowStorm_v2_Bfr_Cascades_2D_binning
+    baseline_dataset: /data/ana/Diffuse/GlobalFit_Flavor/NNMFit_Datasets/WithoutDeepCore/SnowStorm_v2_HESE_Baseline_Cascades
+    data: /data/ana/Diffuse/GlobalFit_Flavor/NNMFit_Datasets/data/HESE12/WithoutDeepCore/data_HESE12_Cascades/dataset_HESE12_Cascades.hdf
+    datasets_path: /data/ana/Diffuse/GlobalFit_Flavor/NNMFit_Datasets/WithoutDeepCore/SnowStorm_v2_HESE_Baseline_Cascades
+    excluded_components: muontemplate
+    livetime: '368813893.34'
+    modification_hooks: ''
+    name: IC86_pass2_SnowStorm_v2_Bfr_Cascades
+    systematics: IC86_pass2_SnowStorm_v2_Bfr_Cascades_systematics
+    var_mapping: IC86_pass2_SnowStorm_v2_Bfr_Cascades_var_mapping
+    var_mapping_mc: IC86_pass2_SnowStorm_v2_Bfr_Cascades_var_mapping_mc
+  IC86_pass2_SnowStorm_v2_Bfr_Cascades_2D_binning:
+    analysis_variables: reco_energy, reco_zenith
+    class_name: Binning_2D
+    reco_energy_binning: (4.778, 7.1, 24, log)
+    reco_zenith_binning: (-1, 1, 11, cos)
+  IC86_pass2_SnowStorm_v2_Bfr_Cascades_systematics:
+    systematics: SnowStorm_v2_Gradient_6sys_HESEBestFit_LvsE_Largebins
+  IC86_pass2_SnowStorm_v2_Bfr_Cascades_var_mapping:
+    econfinement: econfinement
+    eratio: eratio
+    reco_azimuth: reco_azimuth
+    reco_dir_exists: reco_dir_exists
+    reco_dir_fit_status: reco_dir_fit_status
+    reco_energy: reco_energy
+    reco_energy_exists: reco_energy_exists
+    reco_energy_fit_status: reco_energy_fit_status
+    reco_lbye: reco_lbye
+    reco_lbye_exists: reco_lbye_exists
+    reco_length: reco_length
+    reco_zenith: reco_dir
+  IC86_pass2_SnowStorm_v2_Bfr_Cascades_var_mapping_mc:
+    true_energy: MCPrimaryEnergy
+    true_eventclass: TrueEventClass
+    true_length: TrueLength
+    true_ptype: MCPrimaryType
+    true_zenith: MCPrimaryZenith
+  IC86_pass2_SnowStorm_v2_Bfr_DoubleCascades:
+    analysis_binning: IC86_pass2_SnowStorm_v2_Bfr_DoubleCascades_3D_binning
+    baseline_dataset: /data/ana/Diffuse/GlobalFit_Flavor/NNMFit_Datasets/WithoutDeepCore/SnowStorm_v2_HESE_Baseline_DoubleCascades
+    data: /data/ana/Diffuse/GlobalFit_Flavor/NNMFit_Datasets/data/HESE12/WithoutDeepCore/data_HESE12_DoubleCascades/dataset_HESE12_DoubleCascades.hdf
+    datasets_path: /data/ana/Diffuse/GlobalFit_Flavor/NNMFit_Datasets/WithoutDeepCore/SnowStorm_v2_HESE_Baseline_DoubleCascades
+    excluded_components: muontemplate
+    livetime: '368813893.34'
+    modification_hooks: ''
+    name: IC86_pass2_SnowStorm_v2_Bfr_DoubleCascades
+    systematics: IC86_pass2_SnowStorm_v2_Bfr_DoubleCascades_systematics
+    var_mapping: IC86_pass2_SnowStorm_v2_Bfr_DoubleCascades_var_mapping
+    var_mapping_mc: IC86_pass2_SnowStorm_v2_Bfr_DoubleCascades_var_mapping_mc
+  IC86_pass2_SnowStorm_v2_Bfr_DoubleCascades_3D_binning:
+    analysis_variables: reco_energy,reco_length
+    class_name: Binning_2D
+    reco_energy_binning: (4.778, 7.1, 14, log)
+    reco_length_binning: (1, 3, 11, log)
+  IC86_pass2_SnowStorm_v2_Bfr_DoubleCascades_systematics:
+    systematics: SnowStorm_v2_Gradient_6sys_HESEBestFit_LvsE_Largebins
+  IC86_pass2_SnowStorm_v2_Bfr_DoubleCascades_var_mapping:
+    econfinement: econfinement
+    eratio: eratio
+    reco_azimuth: reco_azimuth
+    reco_dir_exists: reco_dir_exists
+    reco_dir_fit_status: reco_dir_fit_status
+    reco_energy: reco_energy
+    reco_energy_exists: reco_energy_exists
+    reco_energy_fit_status: reco_energy_fit_status
+    reco_lbye: reco_lbye
+    reco_lbye_exists: reco_lbye_exists
+    reco_length: reco_length
+    reco_zenith: reco_dir
+  IC86_pass2_SnowStorm_v2_Bfr_DoubleCascades_var_mapping_mc:
+    true_energy: MCPrimaryEnergy
+    true_eventclass: TrueEventClass
+    true_length: TrueLength
+    true_ptype: MCPrimaryType
+    true_zenith: MCPrimaryZenith
+  IC86_pass2_SnowStorm_v2_Bfr_Tracks:
+    analysis_binning: IC86_pass2_SnowStorm_v2_Bfr_Tracks_2D_binning
+    baseline_dataset: /data/ana/Diffuse/GlobalFit_Flavor/NNMFit_Datasets/WithoutDeepCore/SnowStorm_v2_HESE_Baseline_Tracks
+    data: /data/ana/Diffuse/GlobalFit_Flavor/NNMFit_Datasets/data/HESE12/WithoutDeepCore/data_HESE12_Tracks/dataset_HESE12_Tracks.hdf
+    datasets_path: /data/ana/Diffuse/GlobalFit_Flavor/NNMFit_Datasets/WithoutDeepCore/SnowStorm_v2_HESE_Baseline_Tracks
+    excluded_components: ''
+    livetime: '368813893.34'
+    modification_hooks: ''
+    name: IC86_pass2_SnowStorm_v2_Bfr_Tracks
+    systematics: IC86_pass2_SnowStorm_v2_Bfr_Tracks_systematics
+    var_mapping: IC86_pass2_SnowStorm_v2_Bfr_Tracks_var_mapping
+    var_mapping_mc: IC86_pass2_SnowStorm_v2_Bfr_Tracks_var_mapping_mc
+  IC86_pass2_SnowStorm_v2_Bfr_Tracks_2D_binning:
+    analysis_variables: reco_energy, reco_zenith
+    class_name: Binning_2D
+    reco_energy_binning: (4.778, 7.1, 24, log)
+    reco_zenith_binning: (-1, 1, 11, cos)
+  IC86_pass2_SnowStorm_v2_Bfr_Tracks_systematics:
+    systematics: SnowStorm_v2_Gradient_6sys_HESEBestFit_LvsE_Largebins
+  IC86_pass2_SnowStorm_v2_Bfr_Tracks_var_mapping:
+    econfinement: econfinement
+    eratio: eratio
+    reco_azimuth: reco_azimuth
+    reco_dir_exists: reco_dir_exists
+    reco_dir_fit_status: reco_dir_fit_status
+    reco_energy: reco_energy
+    reco_energy_exists: reco_energy_exists
+    reco_energy_fit_status: reco_energy_fit_status
+    reco_lbye: reco_lbye
+    reco_lbye_exists: reco_lbye_exists
+    reco_length: reco_length
+    reco_zenith: reco_dir
+  IC86_pass2_SnowStorm_v2_Bfr_Tracks_var_mapping_mc:
+    true_energy: MCPrimaryEnergy
+    true_eventclass: TrueEventClass
+    true_length: TrueLength
+    true_ptype: MCPrimaryType
+    true_zenith: MCPrimaryZenith
+  SnowStorm_DOMEfficiency:
+    MC_variable: DOMEfficiency
+    class: SnowStormGauss
+    default: '1.0'
+    gauss_width: '0.05'
+    parameters: dom_eff
+    range: (0.9, 1.1)
+    sim_bounds: (0.9, 1.1)
+    sim_dist: uniform
+  SnowStorm_HoleIceForward_p0:
+    MC_variable: HoleIceForward_p0
+    class: SnowStormGauss
+    default: '-0.27'
+    gauss_width: '0.25'
+    parameters: ice_holep0
+    range: (-0.84, 0.3)
+    sim_bounds: (-0.84, 0.3)
+    sim_dist: uniform
+  SnowStorm_HoleIceForward_p1:
+    MC_variable: HoleIceForward_p1
+    class: SnowStormGauss
+    default: '-0.042'
+    gauss_width: '0.05'
+    parameters: ice_holep1
+    range: (-0.134, 0.05)
+    sim_bounds: (-0.134, 0.05)
+    sim_dist: uniform
+  SnowStorm_IceAbsorption:
+    MC_variable: IceAbsorption
+    class: SnowStormGauss
+    default: '1.0'
+    gauss_width: '0.05'
+    parameters: ice_abs
+    range: (0.9, 1.1)
+    sim_bounds: (0.9, 1.1)
+    sim_dist: uniform
+  SnowStorm_IceAnisotropyScale:
+    MC_variable: IceAnisotropyScale
+    class: SnowStormGauss
+    default: '1.0'
+    gauss_width: '0.5'
+    parameters: ice_aniso
+    range: (0.0, 2.0)
+    sim_bounds: (0.0, 2.0)
+    sim_dist: uniform
+  SnowStorm_IceScattering:
+    MC_variable: IceScattering
+    class: SnowStormGauss
+    default: '1.0'
+    gauss_width: '0.05'
+    parameters: ice_scat
+    range: (0.9, 1.1)
+    sim_bounds: (0.9, 1.1)
+    sim_dist: uniform
+  SnowStorm_v2_Gradient_6sys_HESEBestFit_LvsE_Largebins:
+    class: SnowStormGradient
+    default: 1.0, 1.0, 1.0, -0.27, -0.042, 1.0
+    external_gradients: 'True'
+    gradient_pickle: /data/user/nlad/NNMFitStuff/FlavourFit/NNMFit_configs/SnowStormGradients/Bfr_HESE_LvsE_largebins.pickle
+    hist_parameter: 'True'
+    hist_parameter_overall: 'True'
+    param_in_dict: DOMEfficiency, IceAbsorption, IceScattering, HoleIceForward_p0,
+      HoleIceForward_p1,IceAnisotropyScale
+    parameters: dom_eff, ice_abs, ice_scat, ice_holep0, ice_holep1,ice_aniso
+    prior: 1.0, 1.0, 1.0, -0.27 , -0.042 , none
+    prior_width: 0.10, 0.05,0.05,0.5,0.05,none
+    range: (0.9, 1.1) | (0.9, 1.1) | (0.9, 1.1) | (-0.84, 0.3) | (-0.134, 0.05)| (0.0,
+      2.0)
+    split_values: 1.0, 1.0, 1.0, -0.27, -0.042, 1.0
+  main:
+    caching_dir: /data/ana/Diffuse/GlobalFit_Flavor/NNMFit_Datasets/
+    components: conventional,astro,prompt,muontemplate
+    dir_datasets: /data/ana/Diffuse/GlobalFit_Flavor/NNMFit_Datasets/WithoutDeepCore
+    systematics_config: SnowStorm_systematics
+  minimizer_settings:
+    class: LBFGSB
+    tolerance: '10'
