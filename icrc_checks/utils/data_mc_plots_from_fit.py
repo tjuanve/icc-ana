@@ -472,7 +472,32 @@ def get_components_plot_sets(override_plot_components_dict=None):
                 }
             },
         
-       
+        "astro_nonue":
+            {
+                'parameters': ['gamma_astro', 'astro_norm','astro_nue_ratio','astro_nutau_ratio','inel_scale'],
+                'plot_settings': {
+                    'label': 'Astro - All Flavor',
+                    'color': 'C3'
+                }
+            },
+        "astro_nonutau":
+            {
+                'parameters': ['gamma_astro', 'astro_norm','astro_nue_ratio','astro_nutau_ratio','inel_scale'],
+                'plot_settings': {
+                    'label': 'Astro - All Flavor',
+                    'color': 'C3'
+                }
+            },
+        
+        "astro_nonuenutau":
+            {
+                'parameters': ['gamma_astro', 'astro_norm','astro_nue_ratio','astro_nutau_ratio','inel_scale'],
+                'plot_settings': {
+                    'label': 'Astro - All Flavor',
+                    'color': 'C3'
+                }
+            },
+        
         
         "conv":
             {
@@ -532,21 +557,35 @@ def get_components_plot_sets(override_plot_components_dict=None):
 
     
     # astro flux: default (generic) SPL
+    # 'astro_norm': 0.0,
+    # 'gamma_astro': 2.87,
+    # 'astro_nue_ratio': 1.0,
+    # 'astro_nutau_ratio': 1.0,
+    # 'inel_scale':0.0,
+    # 'muongun_norm':0.0,
+
     'astro_norm': 0.0,
-    'gamma_astro': 2.87,
+    'gamma_astro': 2.8429418575098397,
     'astro_nue_ratio': 1.0,
     'astro_nutau_ratio': 1.0,
     'inel_scale':0.0,
-    'muongun_norm':0.0,
-    
-# # #     #snow storm parameters
-    'dom_eff': 1.0,
+    'muongun_norm':0.0,    
+
+    # snow storm parameters
+    # 'dom_eff': 1.0,
     'ice_abs': 1.0,
     'ice_scat': 1.0,
     'ice_aniso' : 1.0,
     'ice_holep0' : -0.27,
     'ice_holep1' : -0.042,
     
+    'dom_eff': 1.043904437153759,
+    # 'ice_abs': 0.9885817135163371,
+    # 'ice_scat': 0.9794450117263607,    
+    # 'ice_aniso': 0.9076585570846607,
+    # 'ice_holep0': -0.26734101032284746,
+    # 'ice_holep1': -0.08416403190869036,
+
 }
     
     
@@ -566,6 +605,8 @@ def get_evaled_components(
     components_plot_dict, params_all_zero = get_components_plot_sets(
         override_plot_components_dict
     )
+    
+    print("get_evaled_components params_all_zero", params_all_zero)
     
     components['settings'] = components_plot_dict
     components['hists'] = {}
@@ -716,6 +757,8 @@ def plot_1D_data_MC_comparison(
             bins_energy = temp["reco_energy"]
             bins_length = temp["reco_length"]
             
+            print("doing this?")
+
 
             shape = (len(bins_energy) - 1, len(bins_length) - 1)
 
@@ -731,6 +774,8 @@ def plot_1D_data_MC_comparison(
                 det_config=det_conf, input_variables=fit_params, reshape=True
             )
 
+            print("component_graphdict", component_graphdict.keys())
+
             # MC components
             components = None
             component_graph = None
@@ -739,7 +784,10 @@ def plot_1D_data_MC_comparison(
                 components = get_evaled_components(
                     det_conf,  graph,component_graphdict, fit_params, override_plot_components_dict,params_all_zero
                 )
-                
+            
+            # print("res",res)
+            # print("components", components)
+
 #             plot_2D_DC_analysisvariables(
 #                 res["mu"],
 #                 res["ssq"],
@@ -768,6 +816,7 @@ def plot_1D_data_MC_comparison(
                         plot_dir=plot_dir,
                         save=save
                     )
+            return components, res
         
         
     else:
@@ -922,8 +971,11 @@ def plot_data_mc_single_fit(
             plot_name_det_conf = plot_name + f"_{det_conf}"
         else:
             plot_name_det_conf = None
+
+        print("doing this???")
+        
         # plot 1d projections for all detector configs
-        plot_1D_data_MC_comparison(
+        components, res = plot_1D_data_MC_comparison(
             hist_graph,
             param_values['best_fit'],
             data,
@@ -941,6 +993,7 @@ def plot_data_mc_single_fit(
             plot_dir=plot_dir,
             save=plot_name_det_conf
         )
+        return components,res
 
 
 def get_hists_from_graphs(
